@@ -6,7 +6,7 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:28:20 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/04 13:56:25 by adjouber         ###   ########.fr        #
+#    Updated: 2018/12/10 13:58:57 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRCS = ft_atoi.c \
 	   ft_lstiter.c \
 	   ft_lstmap.c \
 	   ft_lstnew.c \
+	   get_next_line.c \
 
 OBJS = $(SRCS:.c=.o)
 

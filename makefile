@@ -6,13 +6,14 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/05 12:07:03 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/10 13:52:29 by adjouber         ###   ########.fr        #
+#    Updated: 2018/12/10 14:46:08 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRCS = main.c 
+SRCS = main.c \
+	   read.c
 
 OBJS = $(SRCS:.c=.o)
 

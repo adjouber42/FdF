@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 15:25:16 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/10 17:04:07 by adjouber         ###   ########.fr       */
+/*   Created: 2018/11/15 13:47:50 by adjouber          #+#    #+#             */
+/*   Updated: 2018/11/23 14:59:36 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 1
 # include "libft.h"
-# include "get_next_line.h"
-# include "mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 
-typedef struct		s_fdf
-{
-	int				fd;
-	char			*file;
-	void			*mlx_ptr;
-	void			*win_ptr;
-	int				**map;
-	int				lines;
-	int				points;
-}					t_fdf;
-
-int		ft_read(t_fdf *x);
+int	get_next_line(const int fd, char **line);
 
 #endif
