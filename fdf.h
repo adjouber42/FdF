@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:25:16 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/12 14:16:51 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/12 15:00:04 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct		s_fdf
 	unsigned long	color;
 }					t_fdf;
 
-int		ft_read(t_fdf *x);
-void	mlx(t_fdf *x, char *av);
-void	draw(t_fdf *x);
+int					ft_read(t_fdf *x);
+void				mlx(t_fdf *x, char *av);
+void				draw(t_fdf *x);
 
 #endif

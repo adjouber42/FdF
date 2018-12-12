@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 13:41:40 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/12 14:52:52 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/12 15:00:34 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	mp_count(t_fdf *fdf, char *line)
 	free(line);
 	free(tab);
 	fdf->lines++;
-	return(0);
+	return (0);
 }
 
 static int	alloc_map(t_fdf *fdf)
@@ -74,7 +74,7 @@ static int	alloc_map(t_fdf *fdf)
 	return (0);
 }
 
-int		ft_read(t_fdf *fdf)
+int			ft_read(t_fdf *fdf)
 {
 	char	*line;
 	char	**tab;
