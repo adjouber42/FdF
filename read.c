@@ -6,13 +6,13 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 13:41:40 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/10 17:05:03 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/12 14:52:52 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		check_line(char *tab)
+static int	check_line(char *tab)
 {
 	int		i;
 
@@ -27,7 +27,7 @@ int		check_line(char *tab)
 	return (0);
 }
 
-int		mp_count(t_fdf *x, char *line)
+static int	mp_count(t_fdf *fdf, char *line)
 {
 	int		i;
 	char	**tab;
@@ -41,53 +41,57 @@ int		mp_count(t_fdf *x, char *line)
 		free(tab[i]);
 		i++;
 	}
-	if (x->lines == 0)
-		x->points = i;
+	if (fdf->lines == 0)
+		fdf->points = i;
 	else
 	{
-		if (i != x->points)
+		if (i != fdf->points)
 			return (-1);
 	}
 	free(line);
 	free(tab);
-	x->lines++;
+	fdf->lines++;
 	return(0);
 }
 
-int		alloc_map(t_fdf *x)
+static int	alloc_map(t_fdf *fdf)
 {
 	char	*line;
 	int		ret;
 
 	line = NULL;
-	while ((ret = get_next_line(x->fd, &line)) > 0)
-		if (mp_count(x, line) == -1)
+	while ((ret = get_next_line(fdf->fd, &line)) > 0)
+	{
+		if (mp_count(fdf, line) == -1)
 			return (-1);
-	if (!(x->map = ft_memalloc(sizeof(int*) * x->lines)))
+	}
+	if (ret == 0 && line == NULL)
 		return (-1);
-	close(x->fd);
-	x->fd = open(x->file, O_RDONLY);
+	if (!(fdf->map = ft_memalloc(sizeof(int*) * fdf->lines)))
+		return (-1);
+	close(fdf->fd);
+	fdf->fd = open(fdf->file, O_RDONLY);
 	return (0);
 }
 
-int		ft_read(t_fdf *x)
+int		ft_read(t_fdf *fdf)
 {
 	char	*line;
 	char	**tab;
 	int		xy[3];
 
 	xy[1] = 0;
-	if (!(alloc_map(x)))
+	if (alloc_map(fdf) == -1)
 		return (-1);
-	while ((xy[2] = get_next_line(x->fd, &line)) > 0)
+	while ((xy[2] = get_next_line(fdf->fd, &line)) > 0)
 	{
 		xy[0] = 0;
 		tab = ft_strsplit(line, ' ');
-		if (!(x->map[xy[1]] = ft_memalloc(sizeof(int) * x->points)))
+		if (!(fdf->map[xy[1]] = ft_memalloc(sizeof(int) * fdf->points)))
 			return (-1);
 		while (tab[xy[0]])
 		{
-			x->map[xy[1]][xy[0]] = ft_atoi(tab[xy[0]]);
+			fdf->map[xy[1]][xy[0]] = ft_atoi(tab[xy[0]]);
 			free(tab[xy[0]]);
 			xy[0]++;
 		}

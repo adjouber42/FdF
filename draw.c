@@ -1,42 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 15:27:28 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/12 14:50:50 by adjouber         ###   ########.fr       */
+/*   Created: 2018/12/12 13:55:49 by adjouber          #+#    #+#             */
+/*   Updated: 2018/12/12 14:53:01 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdlib.h>
 
-static void	start(t_fdf *fdf, char **av)
+void	init_draw(t_fdf *fdf)
 {
-	if (av[1] == NULL || ft_read(fdf) == -1)
+	if (fdf->check == 0)
 	{
-		ft_putendl("Error");
-		return ;
+		fdf->z = -5;
+		fdf->dx = LON * 0.4;
+		fdf->dy = 20;
+		fdf->sx = (LON * 0.5) / (fdf->points - 1);
+		fdf->sy = (HAU * 0.3) / (fdf->lines - 1);
+		fdf->color = 0x00FFFFFF;
 	}
-	mlx(fdf, av[1]);
+	fdf->check++;
 }
 
-static int	ft_print_usage(void)
+void	draw(t_fdf *fdf)
 {
-	ft_putendl("usage: ./fdf input_file");
-	return (0);
-}
+	int	x;
+	int	y;
 
-int			main(int ac, char **av)
-{
-	t_fdf	fdf;
-
-	if (ac != 2)
-		return (ft_print_usage());
-	fdf.file = av[1];
-	fdf.fd = open(fdf.file, O_RDONLY);
-	start(&fdf, av);
-	return (0);
+	x = 0;
+	y = 0;
+	init_draw(fdf);
+	
 }
