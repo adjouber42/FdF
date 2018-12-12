@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 13:55:49 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/12 15:28:54 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/12 15:49:43 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ static void	draw_lines(t_fdf *fdf, int x, int y)
 	xy[1] = fdf->dy + fdf->map[y / fdf->sy][x / fdf->sx] * fdf->z + x + y;
 	if (x / fdf->sx < fdf->points - 1 && y / fdf->sy < fdf->lines)
 		draw_seg(fdf, xy, fdf->dx + ((x + fdf->sx) - y), fdf->dy
-			   + fdf->map[y / fdf->sy][x / fdf->sx + 1]
-			   * fdf->z + (x + fdf->sx) + y);	
+				+ fdf->map[y / fdf->sy][x / fdf->sx + 1]
+				* fdf->z + (x + fdf->sx) + y);
 	if (y / fdf->sy < fdf->lines - 1 && x / fdf->sx < fdf->points)
 		draw_seg(fdf, xy, fdf->dx + (x - (fdf->sy + y)), fdf->dy
-			   + fdf->map[y / fdf->sy + 1][x / fdf->sx]
-			   * fdf->z + x + (fdf->sy + y));
+				+ fdf->map[y / fdf->sy + 1][x / fdf->sx]
+				* fdf->z + x + (fdf->sy + y));
 }
 
 static void	init_draw(t_fdf *fdf)
@@ -83,7 +83,7 @@ void		draw(t_fdf *fdf)
 			x = 0;
 			y += fdf->sy;
 		}
-		draw_lines(fdf, x, y);		
+		draw_lines(fdf, x, y);
 		x += fdf->sx;
 	}
 }
