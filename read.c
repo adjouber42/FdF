@@ -6,11 +6,34 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 13:41:40 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/12 15:00:34 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/13 16:21:49 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	max_min(t_fdf *fdf)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	fdf->min = 2147483647;
+	fdf->max = -2147483648;
+	while (i < fdf->lines)
+	{
+		j = 0;
+		while (j < fdf->points)
+		{
+			if (fdf->map[i][j] > fdf->max)
+				fdf->max = fdf->map[i][j];
+			if (fdf->map[i][j] < fdf->min)
+				fdf->min = fdf->map[i][j];
+			j++;
+		}
+		i++;
+	}
+}
 
 static int	check_line(char *tab)
 {
@@ -60,11 +83,10 @@ static int	alloc_map(t_fdf *fdf)
 	int		ret;
 
 	line = NULL;
+	fdf->lines = 0;
 	while ((ret = get_next_line(fdf->fd, &line)) > 0)
-	{
 		if (mp_count(fdf, line) == -1)
 			return (-1);
-	}
 	if (ret == 0 && line == NULL)
 		return (-1);
 	if (!(fdf->map = ft_memalloc(sizeof(int*) * fdf->lines)))
@@ -98,5 +120,6 @@ int			ft_read(t_fdf *fdf)
 		free(tab);
 		xy[1]++;
 	}
+	max_min(fdf);
 	return ((xy[2] == -1) ? -1 : 0);
 }

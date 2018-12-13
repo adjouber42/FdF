@@ -6,7 +6,7 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/05 12:07:03 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/12 15:46:18 by adjouber         ###   ########.fr        #
+#    Updated: 2018/12/13 14:49:22 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = fdf
 SRCS = main.c \
 	   read.c \
 	   fdf.c \
-	   draw_iso.c
+	   draw_iso.c \
+	   color.c
 
 OBJS = $(SRCS:.c=.o)
 

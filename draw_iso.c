@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 13:55:49 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/12 15:49:43 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/13 16:48:43 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_seg(t_fdf *fdf, int *xy, int x, int y)
 	e[0] = (tabx[0] > taby[0] ? tabx[0] : -tabx[0]) / 2;
 	while (x0 != x || y0 != y)
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, x0, y0, fdf->color);
+		mlx_pixel_put(fdf->mlx, fdf->win, x0, y0, fdf->color_put);
 		e[1] = e[0];
 		e[1] > -tabx[0] ? e[0] -= taby[0] : 1 == 1;
 		e[1] > -tabx[0] ? x0 += tabx[1] : 1 == 1;
@@ -44,6 +44,7 @@ static void	draw_lines(t_fdf *fdf, int x, int y)
 
 	xy[0] = fdf->dx + (x - y);
 	xy[1] = fdf->dy + fdf->map[y / fdf->sy][x / fdf->sx] * fdf->z + x + y;
+	color(fdf, x, y);
 	if (x / fdf->sx < fdf->points - 1 && y / fdf->sy < fdf->lines)
 		draw_seg(fdf, xy, fdf->dx + ((x + fdf->sx) - y), fdf->dy
 				+ fdf->map[y / fdf->sy][x / fdf->sx + 1]
@@ -63,7 +64,8 @@ static void	init_draw(t_fdf *fdf)
 		fdf->dy = 20;
 		fdf->sx = (LON * 0.5) / (fdf->points - 1);
 		fdf->sy = (HAU * 0.3) / (fdf->lines - 1);
-		fdf->color = 0x00FFFFFF;
+		fdf->color.color_set = 1;
+		red(fdf);
 	}
 	fdf->check++;
 }
