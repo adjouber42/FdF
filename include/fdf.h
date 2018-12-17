@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:25:16 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/13 17:48:58 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/17 15:05:33 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_fdf
 	int				sy;
 	int				max;
 	int				min;
+	int				*pixel_color;
 	t_color			color;
 	unsigned long	color_put;
 	int				color_limit;

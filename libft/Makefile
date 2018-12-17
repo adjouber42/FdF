@@ -6,7 +6,7 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:28:20 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/10 13:58:57 by adjouber         ###   ########.fr        #
+#    Updated: 2018/12/17 12:19:54 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,16 +86,21 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+	@echo "LIBFT:		your libft is ready"
 
 %.o: %.c
-	gcc -Wall -Werror -Wextra -I includes/ -c $< -o $@
+	@gcc -Wall -Werror -Wextra -I includes/ -c $< -o $@
 
 clean :
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
+	@echo "LIBFT		Removing OBJ path"
 
 fclean : clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "LIBFT		Removing libft.a"
 
 re : fclean all
+
+.PHONY: all, clean, fclean, re
