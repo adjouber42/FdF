@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_iso.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 13:55:49 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/17 15:24:50 by adjouber         ###   ########.fr       */
+/*   Created: 2018/12/20 13:34:31 by adjouber          #+#    #+#             */
+/*   Updated: 2018/12/20 17:09:52 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_seg(t_fdf *fdf, int *xy, int x, int y)
 	e[0] = (tabx[0] > taby[0] ? tabx[0] : -tabx[0]) / 2;
 	while (x0 != x || y0 != y)
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, x0, y0, fdf->color_put);
+		mlx_pixel_put(fdf->mlx, fdf->win, x0, y0, 0x00FFFFFF);
 		e[1] = e[0];
 		e[1] > -tabx[0] ? e[0] -= taby[0] : 1 == 1;
 		e[1] > -tabx[0] ? x0 += tabx[1] : 1 == 1;
@@ -44,7 +44,6 @@ static void	draw_lines(t_fdf *fdf, int x, int y)
 
 	xy[0] = fdf->dx + (x - y);
 	xy[1] = fdf->dy + fdf->map[y / fdf->sy][x / fdf->sx] * fdf->z + x + y;
-	color(fdf, x, y);
 	if (x / fdf->sx < fdf->points - 1 && y / fdf->sy < fdf->lines)
 		draw_seg(fdf, xy, fdf->dx + ((x + fdf->sx) - y), fdf->dy
 				+ fdf->map[y / fdf->sy][x / fdf->sx + 1]
@@ -61,16 +60,15 @@ static void	init_draw(t_fdf *fdf)
 	{
 		fdf->z = -5;
 		fdf->dx = LON * 0.4;
-		fdf->dy = 20;
-		fdf->sx = (LON * 0.5) / (fdf->points - 1);
-		fdf->sy = (HAU * 0.3) / (fdf->lines - 1);
-		fdf->color.color_set = 1;
-		red(fdf);
+		fdf->dy = 100;
+		fdf->sx = (LON * 0.3) / (fdf->points - 1);
+		fdf->sy = (HAU * 0.2) / (fdf->lines - 1);
+		fdf->projection = 1;
 	}
 	fdf->check++;
 }
 
-void		draw(t_fdf *fdf)
+void		draw_iso(t_fdf *fdf)
 {
 	int	x;
 	int	y;

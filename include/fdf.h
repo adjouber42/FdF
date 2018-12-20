@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:25:16 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/17 15:05:33 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/20 17:10:23 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,30 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# define LON 1500
-# define HAU 1500
+# define LON 2000
+# define HAU 1300
 
-typedef struct		s_color
+typedef struct		s_calc
 {
-	int				color_set;
-	unsigned long	color1;
-	unsigned long	color2;
-	unsigned long	color3;
-	unsigned long	color4;
-	unsigned long	color5;
-	unsigned long	color6;
-	unsigned long	color7;
-	unsigned long	color8;
-	unsigned long	color9;
-}					t_color;
+	int				xinc;
+	int				yinc;
+	int				rx;
+	int				ry;
+	int				cumul;
+}					t_calc;
+
+typedef struct		s_coord
+{
+	int				x;
+	int				y;
+	int				z;
+}					t_coord;
+
+typedef struct		s_coorf
+{
+	float			x;
+	float			y;
+}					t_coorf;
 
 typedef struct		s_fdf
 {
@@ -50,20 +58,19 @@ typedef struct		s_fdf
 	int				dy;
 	int				sx;
 	int				sy;
-	int				max;
-	int				min;
-	int				*pixel_color;
-	t_color			color;
-	unsigned long	color_put;
-	int				color_limit;
+	t_coord			*coord;
+	t_coorf			*coorf;
+	int				zoom_limit;
+	int				projection;
 }					t_fdf;
 
 int					ft_read(t_fdf *fdf);
 void				mlx(t_fdf *fdf, char *av);
-void				draw(t_fdf *fdf);
-void				red(t_fdf *fdf);
-void				blue(t_fdf *fdf);
-void				green(t_fdf *fdf);
-void				color(t_fdf *fdf, int x, int y);
+void				draw_iso(t_fdf *fdf);
+int					color_par(t_fdf *fdf, int i, int j, int k);
+void				draw_par(t_fdf *fdf);
+void				display(t_fdf *fdf);
+void				keyboard_iso(int key, t_fdf *fdf);
+void				keyboard_par(int key, t_fdf *fdf);
 
 #endif

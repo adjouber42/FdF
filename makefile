@@ -6,7 +6,7 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/05 12:07:03 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/17 12:23:03 by adjouber         ###   ########.fr        #
+#    Updated: 2018/12/20 14:27:41 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,11 @@ SRCS = src/main.c \
 	   src/read.c \
 	   src/fdf.c \
 	   src/draw_iso.c \
-	   src/color.c
+	   src/color.c \
+	   src/draw_par.c \
+	   src/display.c \
+	   src/keyboard_par.c \
+	   src/keyboard_iso.c
 
 OBJS = $(SRCS:.c=.o)
 

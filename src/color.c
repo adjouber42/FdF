@@ -6,64 +6,52 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:24:37 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/17 15:32:47 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/20 17:10:55 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	red(t_fdf *fdf)
+static int		ft_color(int res)
 {
-	if (fdf->color.color_set != 0)
-	{
-		fdf->color.color_set = 0;
-		fdf->color.color1 = 0x00FFFFFF;
-		fdf->color.color4 = 0x00FFFF44;
-		fdf->color.color6 = 0x00FFCC00;
-		fdf->color.color8 = 0x00FF4400;
-		fdf->color.color9 = 0x00FF0000;
-	}
+	res = -res * 2;
+	if (res < -3 * 255)
+		return (0x0000FF);
+	else if (res < -2 * 255 && res >= -3 * 255)
+		return (0x00FFFF - (res * -1 - 2 * 255) * 256);
+	else if (res < -1 * 255 && res >= -2 * 255)
+		return (0x00FF00 + (res * -1 - 1 * 255));
+	else if (res < 0 * 255 && res >= -1 * 255)
+		return (0xFFFF00 + res * 256 * 256);
+	else if (res < 1 * 255 && res >= 0 * 255)
+		return (0xFFFF00 - 256 * res);
+	else if (res < 2 * 255 && res >= 1 * 255)
+		return (0xFF0000 + res - 256);
+	else if (res < 3 * 255 && res >= 2 * 255)
+		return (0xFF00FF + (res - 2 * 256) * 256);
+	else
+		return (0xFFFFFF);
 }
 
-void	blue(t_fdf *fdf)
+int		color_par(t_fdf *fdf, int i, int k, int j)
 {
-	if (fdf->color.color_set != 1)
+	int	res;
+	int	dx;
+	int	dy;
+
+	dx = fdf->coorf[k].x - fdf->coorf[i].x;
+	dy = fdf->coorf[k].y - fdf->coorf[i].y;
+	dx = (dx >= 0) ? dx : -dx;
+	dy = (dy >= 0) ? dy : -dy;
+	if (dx >= dy)
 	{
-		fdf->color.color_set = 1;
-		fdf->color.color1 = 0x00FFFFFF;
-		fdf->color.color4 = 0x00FF44FF;
-		fdf->color.color6 = 0x00CC00FF;
-		fdf->color.color8 = 0x004400FF;
-		fdf->color.color9 = 0x000000FF;
+		res = ft_color(fdf->coord[i].z * 10 + j * 10 *
+				(fdf->coord[k].z - fdf->coord[i].z) / dx);
 	}
-}
-
-void	green(t_fdf *fdf)
-{
-	if (fdf->color.color_set != 2)
+	else
 	{
-		fdf->color.color_set = 2;
-		fdf->color.color1 = 0x00FFFFFF;
-		fdf->color.color4 = 0x00AAFFFF;
-		fdf->color.color6 = 0x0000FFFF;
-		fdf->color.color8 = 0x0000FFAA;
-		fdf->color.color9 = 0x0000FF00;
+		res = ft_color(fdf->coord[i].z * 10 + j * 10 *
+				(fdf->coord[k].z - fdf->coord[i].z) / dy);
 	}
-}
-
-void	color(t_fdf *fdf, int x, int y)
-{
-	int	z;
-
-	z = fdf->map[y / fdf->sy][x / fdf->sx];
-	if (z == fdf->min)
-		fdf->color_put = fdf->color.color1;
-	else if (z > fdf->min && z < fdf->max/2)
-		fdf->color_put = fdf->color.color4;
-	else if (z == fdf->max / 2)
-		fdf->color_put = fdf->color.color6;
-	else if (z > fdf->max / 2 && z < fdf->max)
-		fdf->color_put = fdf->color.color8;
-	else if (z == fdf->max)
-		fdf->color_put = fdf->color.color9;
+	return (res);
 }
