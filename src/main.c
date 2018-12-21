@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:27:28 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/13 16:18:07 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/21 16:48:41 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static void	start(t_fdf *fdf, char **av)
 		ft_putendl("Error");
 		return ;
 	}
+	fdf->size_line = 0;
+	fdf->endian = 0;
+	fdf->bpp = 0;
+	fdf->img = NULL;
+	fdf->data = NULL;
 	mlx(fdf, av[1]);
 }
 

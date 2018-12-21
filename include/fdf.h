@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:25:16 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/20 17:10:23 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:35:45 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct		s_fdf
 	int				**map;
 	int				lines;
 	int				points;
-	int				check;
+	int				coef;
 	int				z;
 	int				dx;
 	int				dy;
@@ -60,17 +60,20 @@ typedef struct		s_fdf
 	int				sy;
 	t_coord			*coord;
 	t_coorf			*coorf;
-	int				zoom_limit;
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				endian;
+	int				size_line;
 	int				projection;
 }					t_fdf;
 
 int					ft_read(t_fdf *fdf);
 void				mlx(t_fdf *fdf, char *av);
-void				draw_iso(t_fdf *fdf);
-int					color_par(t_fdf *fdf, int i, int j, int k);
-void				draw_par(t_fdf *fdf);
+int					color(t_fdf *fdf, int i, int j, int k);
+void				draw(t_fdf *fdf);
 void				display(t_fdf *fdf);
-void				keyboard_iso(int key, t_fdf *fdf);
-void				keyboard_par(int key, t_fdf *fdf);
+void				keyboard_max(int key, t_fdf *fdf);
+void				projection(t_fdf *fdf);
 
 #endif

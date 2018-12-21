@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 13:31:20 by adjouber          #+#    #+#             */
-/*   Updated: 2018/11/14 16:48:36 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/21 14:31:21 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*ft_string(char const *s, char *str, char c, int n)
 
 	x = 0;
 	size = ft_size_words(s, c, n);
-	if (!(str = (char*)malloc(sizeof(char) * (size))))
+	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	while (x < size)
 	{

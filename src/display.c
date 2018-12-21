@@ -6,11 +6,23 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 16:06:49 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/20 16:10:01 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:15:28 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	pixel_put_image(int x, int y, t_fdf *fdf, int color)
+{
+	int	pixel;
+
+	pixel = x * 4 + y * fdf->size_line;
+	if (pixel < 0 || pixel > LON * HAU * 4)
+		return ;
+	fdf->data[pixel] = color & 0xFF;
+	fdf->data[pixel + 1] = color >> 8 & 0xFF;
+	fdf->data[pixel + 2] = color >> 16 & 0xFF;
+}
 
 static void	ft_draw_line2(t_calc *calc, t_fdf *fdf, int i, int k)
 {
@@ -31,8 +43,8 @@ static void	ft_draw_line2(t_calc *calc, t_fdf *fdf, int i, int k)
 			calc->cumul -= calc->rx;
 			y += calc->yinc;
 		}
-		mlx_pixel_put(fdf->mlx, fdf->win, 800 + x, 200 + y,
-				color_par(fdf, i, k, j));
+		if (800 + x >= 0 && 800 + x < LON && 200 + y >= 0 && 200 + y < HAU)
+			pixel_put_image(800 + x, 200 + y, fdf, color(fdf, i, k, j));
 		j++;
 	}
 }
@@ -56,8 +68,8 @@ static void	ft_draw_line3(t_calc *calc, t_fdf *fdf, int i, int k)
 			calc->cumul -= calc->ry;
 			x += calc->xinc;
 		}
-		mlx_pixel_put(fdf->mlx, fdf->win, 800 + x, 200 + y, 
-				color_par(fdf, i, k, j));
+		if (800 + x >= 0 && 800 + x < LON && 200 + y >= 0 && 200 + y < HAU)
+			pixel_put_image(800 + x, 200 + y, fdf, color(fdf, i, k, j));
 		j++;
 	}
 }
@@ -97,4 +109,5 @@ void		display(t_fdf *fdf)
 			ft_draw_line1(fdf, i, i + fdf->points);
 		i++;
 	}
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
 }

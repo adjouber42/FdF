@@ -6,13 +6,13 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:24:37 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/20 17:10:55 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/21 18:21:06 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		ft_color(int res)
+static int	ft_color(int res)
 {
 	res = -res * 2;
 	if (res < -3 * 255)
@@ -33,7 +33,7 @@ static int		ft_color(int res)
 		return (0xFFFFFF);
 }
 
-int		color_par(t_fdf *fdf, int i, int k, int j)
+int			color(t_fdf *fdf, int i, int k, int j)
 {
 	int	res;
 	int	dx;

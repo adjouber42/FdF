@@ -6,7 +6,7 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/05 12:07:03 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/20 14:27:41 by adjouber         ###   ########.fr        #
+#    Updated: 2018/12/21 18:20:41 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,24 +15,24 @@ NAME = fdf
 SRCS = src/main.c \
 	   src/read.c \
 	   src/fdf.c \
-	   src/draw_iso.c \
 	   src/color.c \
-	   src/draw_par.c \
+	   src/draw.c \
 	   src/display.c \
-	   src/keyboard_par.c \
-	   src/keyboard_iso.c
+	   src/keyboard.c
 
 OBJS = $(SRCS:.c=.o)
+
+FLAG = -g3 -fsanitize=address
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@gcc -Wall -Werror -Wextra -o $(NAME) $(OBJS) -I libft/includes -I /usr/local/include -I include -L libft/ -lft -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
+	@gcc -Wall -Werror -Wextra $(FLAG) -o $(NAME) $(OBJS) -I libft/includes -I /usr/local/include -I include -L libft/ -lft -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 	@echo "FDF:		FDF READY"
 
 %.o : %.c
 	@make -C libft/
-	@gcc -Wall -Werror -Wextra -I libft/includes -I /usr/local/include -I include -c $< -o $@
+	@gcc -Wall -Werror -Wextra $(FLAG) -I libft/includes -I /usr/local/include -I include -c $< -o $@
 
 clean :
 	@make -C libft/ clean

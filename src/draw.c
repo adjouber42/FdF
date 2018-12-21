@@ -1,16 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_par.c                                         :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/18 15:36:56 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/20 15:07:31 by adjouber         ###   ########.fr       */
+/*   Created: 2018/12/21 18:15:51 by adjouber          #+#    #+#             */
+/*   Updated: 2018/12/21 18:35:42 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	projection_iso(t_fdf *fdf)
+{
+	int i;
+
+	i = 0;
+	if (!(fdf->coorf = ft_memalloc(sizeof(t_coorf) * fdf->lines * fdf->points)))
+		return ;
+	while (i < fdf->lines * fdf->points)
+	{
+		fdf->coorf[i].x = (float)fdf->coord[i].x * 0.7 * 50 -
+				(float)fdf->coord[i].y * 0.7 * 50;
+		fdf->coorf[i].y = (float)fdf->coord[i].z * 50 * 0.1 * fdf->coef +
+			0.7 / 2 *50 * fdf->coord[i].x + 0.7 / 2 * 50 *
+			(float)fdf->coord[i].y;
+		i++;
+	}
+	display(fdf);
+}
 
 static void	projection_par(t_fdf *fdf)
 {
@@ -22,15 +41,23 @@ static void	projection_par(t_fdf *fdf)
 	while (i < fdf->lines * fdf->points)
 	{
 		fdf->coorf[i].x = (float)fdf->coord[i].x * 50
-			+ (float)fdf->coord[i].z * 2.5;
+			+ (float)fdf->coord[i].z * 2.5 * fdf->coef;
 		fdf->coorf[i].y = (float)fdf->coord[i].y * 50
-			+ (float)fdf->coord[i].z * 1.25;
+			+ (float)fdf->coord[i].z * 1.25 * fdf->coef;
 		i++;
 	}
 	display(fdf);
 }
 
-void		draw_par(t_fdf *fdf)
+void		projection(t_fdf *fdf)
+{
+	if (fdf->projection == 1)
+		projection_iso(fdf);
+	if (fdf->projection == 2)
+		projection_par(fdf);
+}
+
+void		draw(t_fdf *fdf)
 {
 	int	i;
 	int	j;
@@ -56,5 +83,5 @@ void		draw_par(t_fdf *fdf)
 		if (i < fdf->lines)
 			k++;
 	}
-	projection_par(fdf);
+	projection(fdf);
 }
