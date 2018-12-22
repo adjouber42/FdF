@@ -11,68 +11,54 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
-static void	zoom_par(int key, t_fdf *fdf)
+static void	zoom(int key, t_fdf *fdf)
 {
 	int	i;
 
 	i = 0;
 	ft_bzero(fdf->data, LON * HAU * 4);
 	if (key == 24)
-	{
-		while (i < fdf->lines * fdf->points)
-		{
-			fdf->coorf[i].x *= 1.5;
-			fdf->coorf[i].y *= 1.5;
-			i++;
-		}
-	}
+		fdf->zoom *= 2;
 	if (key == 27)
-	{
-		while (i < fdf->lines * fdf->points)
-		{
-			fdf->coorf[i].x /= 1.5;
-			fdf->coorf[i].y /= 1.5;
-			i++;
-		}
-	}
-	display(fdf);
+		if (fdf->zoom / 2 != 0)
+			fdf->zoom /= 2;
+	projection(fdf);
 }
 
-static void	decal_par2(int key, t_fdf *fdf, int i)
+static void	decal2(int key, t_fdf *fdf, int i)
 {
 	if (key == 125)
 		while (i < fdf->lines * fdf->points)
 		{
-			fdf->coorf[i].y += 10;
+			fdf->coord[i].y += 1;
 			i++;
 		}
 	if (key == 126)
 		while (i < fdf->lines * fdf->points)
 		{
-			fdf->coorf[i].y -= 10;
+			fdf->coord[i].y -= 1;
 			i++;
 		}
 }
 
-static void	decal_par(int key, t_fdf *fdf, int i)
+static void	decal(int key, t_fdf *fdf, int i)
 {
 	ft_bzero(fdf->data, LON * HAU * 4);
 	if (key == 123)
 		while (i < fdf->lines * fdf->points)
 		{
-			fdf->coorf[i].x -= 10;
+			fdf->coord[i].x -= 1;
 			i++;
 		}
 	if (key == 124)
 		while (i < fdf->lines * fdf->points)
 		{
-			fdf->coorf[i].x += 10;
+			fdf->coord[i].x += 1;
 			i++;
 		}
-	decal_par2(key, fdf, i);
-	display(fdf);
+	decal2(key, fdf, i);
+	projection(fdf);
 }
 
 static void	profondeur(int key, t_fdf *fdf)
@@ -89,9 +75,9 @@ static void	profondeur(int key, t_fdf *fdf)
 void		keyboard_max(int key, t_fdf *fdf)
 {
 	if (key == 24 || key == 27)
-		zoom_par(key, fdf);
+		zoom(key, fdf);
 	if (key >= 123 && key <= 126)
-		decal_par(key, fdf, 0);
+		decal(key, fdf, 0);
 	if (key == 47 || key == 43)
 		profondeur(key, fdf);
 	if (key == 49)
@@ -100,5 +86,4 @@ void		keyboard_max(int key, t_fdf *fdf)
 		free(fdf->coorf);
 		draw(fdf);
 	}
-	printf("%d\n", key);
 }

@@ -21,10 +21,10 @@ static void	projection_iso(t_fdf *fdf)
 		return ;
 	while (i < fdf->lines * fdf->points)
 	{
-		fdf->coorf[i].x = (float)fdf->coord[i].x * 0.7 * 50 -
-				(float)fdf->coord[i].y * 0.7 * 50;
-		fdf->coorf[i].y = (float)fdf->coord[i].z * 50 * 0.1 * fdf->coef +
-			0.7 / 2 *50 * fdf->coord[i].x + 0.7 / 2 * 50 *
+		fdf->coorf[i].x = (float)fdf->coord[i].x * 0.5 * fdf->zoom -
+				(float)fdf->coord[i].y * 0.5 * fdf->zoom;
+		fdf->coorf[i].y = (float)fdf->coord[i].z * fdf->zoom * 0.1 * fdf->coef +
+			0.5 / 2 * fdf->zoom * fdf->coord[i].x + 0.5 / 2 * fdf->zoom *
 			(float)fdf->coord[i].y;
 		i++;
 	}
@@ -40,9 +40,9 @@ static void	projection_par(t_fdf *fdf)
 		return ;
 	while (i < fdf->lines * fdf->points)
 	{
-		fdf->coorf[i].x = (float)fdf->coord[i].x * 50
+		fdf->coorf[i].x = (float)fdf->coord[i].x * fdf->zoom * 0.7
 			+ (float)fdf->coord[i].z * 2.5 * fdf->coef;
-		fdf->coorf[i].y = (float)fdf->coord[i].y * 50
+		fdf->coorf[i].y = (float)fdf->coord[i].y * fdf->zoom * 0.7
 			+ (float)fdf->coord[i].z * 1.25 * fdf->coef;
 		i++;
 	}
@@ -52,9 +52,15 @@ static void	projection_par(t_fdf *fdf)
 void		projection(t_fdf *fdf)
 {
 	if (fdf->projection == 1)
+	{
+		fdf->dx = 800;
 		projection_iso(fdf);
+	}
 	if (fdf->projection == 2)
+	{
+		fdf->dx = 550;
 		projection_par(fdf);
+	}
 }
 
 void		draw(t_fdf *fdf)

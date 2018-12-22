@@ -12,8 +12,10 @@
 
 #include "fdf.h"
 
-void	projection_bis(int key, t_fdf *fdf)
+int		keyboard(int key, t_fdf *fdf)
 {
+	if (key == 53)
+		exit(EXIT_SUCCESS);
 	if (key == 35 && fdf->projection != 2)
 	{
 		ft_bzero(fdf->data, LON * HAU * 4);
@@ -26,13 +28,6 @@ void	projection_bis(int key, t_fdf *fdf)
 		fdf->projection = 1;
 		draw(fdf);
 	}
-}
-
-int		keyboard(int key, t_fdf *fdf)
-{
-	if (key == 53)
-		exit(EXIT_SUCCESS);
-	projection_bis(key, fdf);
 	keyboard_max(key, fdf);
 	return (0);
 }
@@ -52,16 +47,24 @@ void	ft_fdf(t_fdf *fdf)
 	}
 }
 
+void	commande(void)
+{
+	ft_putendl("isometrie = i\nparallele = p\nmove = up, down, left, right\nzoom = +, -\naltitude = < , >\nreset = space\nclose = esc");
+
+}
+
 void	mlx(t_fdf *fdf, char *av)
 {
 	fdf->coef = 1;
 	fdf->projection = 2;
+	fdf->zoom = LON / (fdf->points + fdf->lines);
 	if (!(fdf->mlx = mlx_init()))
 	{
 		ft_putendl("manque de place pour mlx_init");
 		exit(0);
 	}
 	fdf->win = mlx_new_window(fdf->mlx, LON, HAU, ft_strjoin("Fdf - ", av));
+	commande();
 	ft_fdf(fdf);
 	draw(fdf);
 	mlx_hook(fdf->win, 2, 1L << 1, keyboard, fdf);

@@ -22,17 +22,23 @@ SRCS = src/main.c \
 
 OBJS = $(SRCS:.c=.o)
 
-FLAG = -g3 -fsanitize=address
+INCLUDES = -I libft/includes -I /usr/local/include -I include
+
+LIB = -L libft/ -lft -L /usr/local/lib -lmlx
+
+CC = gcc
+
+FLAG = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@gcc -Wall -Werror -Wextra $(FLAG) -o $(NAME) $(OBJS) -I libft/includes -I /usr/local/include -I include -L libft/ -lft -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
+	@$(CC) $(FLAG) -o $(NAME) $(OBJS) $(INCLUDES) $(LIB) -framework OpenGL -framework AppKit
 	@echo "FDF:		FDF READY"
 
 %.o : %.c
 	@make -C libft/
-	@gcc -Wall -Werror -Wextra $(FLAG) -I libft/includes -I /usr/local/include -I include -c $< -o $@
+	@$(CC) $(FLAG) $(INCLUDES) -c $< -o $@
 
 clean :
 	@make -C libft/ clean

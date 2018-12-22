@@ -53,7 +53,7 @@ typedef struct		s_fdf
 	int				lines;
 	int				points;
 	int				coef;
-	int				z;
+	int				zoom;
 	int				dx;
 	int				dy;
 	int				sx;

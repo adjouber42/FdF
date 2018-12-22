@@ -43,8 +43,8 @@ static void	ft_draw_line2(t_calc *calc, t_fdf *fdf, int i, int k)
 			calc->cumul -= calc->rx;
 			y += calc->yinc;
 		}
-		if (800 + x >= 0 && 800 + x < LON && 200 + y >= 0 && 200 + y < HAU)
-			pixel_put_image(800 + x, 200 + y, fdf, color(fdf, i, k, j));
+		if (fdf->dx + x >= 0 && fdf->dx + x < LON && 200 + y >= 0 && 200 + y < HAU)
+			pixel_put_image(fdf->dx + x, 200 + y, fdf, color(fdf, i, k, j));
 		j++;
 	}
 }
@@ -68,8 +68,8 @@ static void	ft_draw_line3(t_calc *calc, t_fdf *fdf, int i, int k)
 			calc->cumul -= calc->ry;
 			x += calc->xinc;
 		}
-		if (800 + x >= 0 && 800 + x < LON && 200 + y >= 0 && 200 + y < HAU)
-			pixel_put_image(800 + x, 200 + y, fdf, color(fdf, i, k, j));
+		if (fdf->dx + x >= 0 && fdf->dx + x < LON && 200 + y >= 0 && 200 + y < HAU)
+			pixel_put_image(fdf->dx + x, 200 + y, fdf, color(fdf, i, k, j));
 		j++;
 	}
 }
