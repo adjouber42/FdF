@@ -32,12 +32,16 @@ static void	decal2(int key, t_fdf *fdf, int i)
 		while (i < fdf->lines * fdf->points)
 		{
 			fdf->coord[i].y += 1;
+			if (fdf->projection == 1)
+				fdf->coord[i].x += 1;
 			i++;
 		}
 	if (key == 126)
 		while (i < fdf->lines * fdf->points)
 		{
 			fdf->coord[i].y -= 1;
+			if (fdf->projection == 1)
+				fdf->coord[i].x -= 1;
 			i++;
 		}
 }
@@ -49,12 +53,16 @@ static void	decal(int key, t_fdf *fdf, int i)
 		while (i < fdf->lines * fdf->points)
 		{
 			fdf->coord[i].x -= 1;
+			if (fdf->projection == 1)
+				fdf->coord[i].y += 1;
 			i++;
 		}
 	if (key == 124)
 		while (i < fdf->lines * fdf->points)
 		{
 			fdf->coord[i].x += 1;
+			if (fdf->projection == 1)
+				fdf->coord[i].y -= 1;
 			i++;
 		}
 	decal2(key, fdf, i);
