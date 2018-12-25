@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static void	zoom(int key, t_fdf *fdf)
+static void	zoom_profondeur(int key, t_fdf *fdf)
 {
 	int	i;
 
@@ -23,7 +23,13 @@ static void	zoom(int key, t_fdf *fdf)
 	if (key == 27)
 		if (fdf->zoom / 2 != 0)
 			fdf->zoom /= 2;
+	if (key == 47)
+		fdf->coef--;
+	if (key == 43)
+		fdf->coef++;
+	free(fdf->coorf);
 	projection(fdf);
+	commande(fdf);
 }
 
 static void	decal2(int key, t_fdf *fdf, int i)
@@ -67,31 +73,49 @@ static void	decal(int key, t_fdf *fdf, int i)
 		}
 	decal2(key, fdf, i);
 	projection(fdf);
+	commande(fdf);
 }
 
-static void	profondeur(int key, t_fdf *fdf)
+static void	color_choose(int key, t_fdf *fdf)
 {
-	ft_bzero(fdf->data, LON *HAU * 4);
-	if (key == 47)
-		fdf->coef--;
-	if (key == 43)
-		fdf->coef++;
-	free(fdf->coorf);
-	projection(fdf);
+	if (key == 15 && fdf->color_set != 1)
+	{
+		ft_bzero(fdf->data, LON * HAU * 4);
+		rouge(fdf);
+		display(fdf);
+	}
+	if (key == 9 && fdf->color_set != 2)
+	{
+		ft_bzero(fdf->data, LON * HAU * 4);
+		vert(fdf);
+		display(fdf);
+	}
+	if (key == 11 && fdf->color_set != 3)
+	{
+		ft_bzero(fdf->data, LON * HAU * 4);
+		bleu(fdf);
+		display(fdf);
+	}
+	commande(fdf);
 }
 
 void		keyboard_max(int key, t_fdf *fdf)
 {
-	if (key == 24 || key == 27)
-		zoom(key, fdf);
+	if (key == 24 || key == 27 || key == 47 || key == 43)
+		zoom_profondeur(key, fdf);
 	if (key >= 123 && key <= 126)
 		decal(key, fdf, 0);
-	if (key == 47 || key == 43)
-		profondeur(key, fdf);
+	if (key == 15 || key == 9 || key == 11)
+		color_choose(key, fdf);
 	if (key == 49)
 	{
 		ft_bzero(fdf->data, LON * HAU * 4);
 		free(fdf->coorf);
+		fdf->coef = 1;
+		fdf->projection = 2;
+		fdf->zoom = LON / (fdf->points + fdf->lines);
+		rouge(fdf);
 		draw(fdf);
+		commande(fdf);
 	}
 }

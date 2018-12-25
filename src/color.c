@@ -12,23 +12,32 @@
 
 #include "fdf.h"
 
-static int	ft_color(int res)
+void		bleu(t_fdf *fdf)
+{
+	fdf->color_set = 3;
+	fdf->color = 0xFF00FF;
+	fdf->color_mult = 256 * 256;
+}
+
+void		vert(t_fdf *fdf)
+{
+	fdf->color_set = 2;
+	fdf->color = 0x00FFFF;
+	fdf->color_mult = 1;
+}
+
+void		rouge(t_fdf *fdf)
+{
+	fdf->color_set = 1;
+	fdf->color = 0xFFFF00;
+	fdf->color_mult = 256;
+}
+
+static int	ft_color(int res, t_fdf *fdf)
 {
 	res = -res * 2;
-	if (res < -3 * 255)
-		return (0x0000FF);
-	else if (res < -2 * 255 && res >= -3 * 255)
-		return (0x00FFFF - (res * -1 - 2 * 255) * 256);
-	else if (res < -1 * 255 && res >= -2 * 255)
-		return (0x00FF00 + (res * -1 - 1 * 255));
-	else if (res < 0 * 255 && res >= -1 * 255)
-		return (0xFFFF00 + res * 256 * 256);
-	else if (res < 1 * 255 && res >= 0 * 255)
-		return (0xFFFF00 - 256 * res);
-	else if (res < 2 * 255 && res >= 1 * 255)
-		return (0xFF0000 + res - 256);
-	else if (res < 3 * 255 && res >= 2 * 255)
-		return (0xFF00FF + (res - 2 * 256) * 256);
+	if (res < 1 * 255 && res >= 0 * 255)
+		return (fdf->color - res * fdf->color_mult);
 	else
 		return (0xFFFFFF);
 }
@@ -46,12 +55,12 @@ int			color(t_fdf *fdf, int i, int k, int j)
 	if (dx >= dy)
 	{
 		res = ft_color(fdf->coord[i].z * 10 + j * 10 *
-				(fdf->coord[k].z - fdf->coord[i].z) / dx);
+				(fdf->coord[k].z - fdf->coord[i].z) / dx, fdf);
 	}
 	else
 	{
 		res = ft_color(fdf->coord[i].z * 10 + j * 10 *
-				(fdf->coord[k].z - fdf->coord[i].z) / dy);
+				(fdf->coord[k].z - fdf->coord[i].z) / dy, fdf);
 	}
 	return (res);
 }

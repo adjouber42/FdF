@@ -55,11 +55,11 @@ typedef struct		s_fdf
 	int				coef;
 	int				zoom;
 	int				dx;
-	int				dy;
-	int				sx;
-	int				sy;
 	t_coord			*coord;
 	t_coorf			*coorf;
+	int				color;
+	int				color_set;
+	int				color_mult;
 	void			*img;
 	char			*data;
 	int				bpp;
@@ -75,5 +75,9 @@ void				draw(t_fdf *fdf);
 void				display(t_fdf *fdf);
 void				keyboard_max(int key, t_fdf *fdf);
 void				projection(t_fdf *fdf);
+void				rouge(t_fdf *fdf);
+void				vert(t_fdf *fdf);
+void				bleu(t_fdf *fdf);
+void				commande(t_fdf *fdf);
 
 #endif

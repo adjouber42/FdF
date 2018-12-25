@@ -21,12 +21,14 @@ int		keyboard(int key, t_fdf *fdf)
 		ft_bzero(fdf->data, LON * HAU * 4);
 		fdf->projection = 2;
 		draw(fdf);
+		commande(fdf);
 	}
 	if (key == 34 && fdf->projection != 1)
 	{
 		ft_bzero(fdf->data, LON * HAU * 4);
 		fdf->projection = 1;
 		draw(fdf);
+		commande(fdf);
 	}
 	keyboard_max(key, fdf);
 	return (0);
@@ -47,16 +49,23 @@ void	ft_fdf(t_fdf *fdf)
 	}
 }
 
-void	commande(void)
+void	commande(t_fdf *fdf)
 {
-	ft_putendl("isometrie = i\nparallele = p\nmove = up, down, left, right\nzoom = +, -\naltitude = < , >\nreset = space\nclose = esc");
-
+	mlx_string_put(fdf->mlx, fdf->win, 35, 35, 0xFFFFFF, "isometrie = i");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 55, 0xFFFFFF, "parallele = p");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 75, 0xFFFFFF, "move = up , down , left , right");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 95, 0xFFFFFF, "zoom = + , -");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 115, 0xFFFFFF, "altitude = < , >");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 135, 0xFFFFFF, "change color = r , v , b");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 155, 0xFFFFFF, "reset = space");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 175, 0xFFFFFF, "close = esc");
 }
 
 void	mlx(t_fdf *fdf, char *av)
 {
 	fdf->coef = 1;
 	fdf->projection = 2;
+	rouge(fdf);
 	fdf->zoom = LON / (fdf->points + fdf->lines);
 	if (!(fdf->mlx = mlx_init()))
 	{
@@ -64,9 +73,9 @@ void	mlx(t_fdf *fdf, char *av)
 		exit(0);
 	}
 	fdf->win = mlx_new_window(fdf->mlx, LON, HAU, ft_strjoin("Fdf - ", av));
-	commande();
 	ft_fdf(fdf);
 	draw(fdf);
+	commande(fdf);
 	mlx_hook(fdf->win, 2, 1L << 1, keyboard, fdf);
 	mlx_loop(fdf->mlx);
 }
