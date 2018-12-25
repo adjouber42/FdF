@@ -53,14 +53,10 @@ int			color(t_fdf *fdf, int i, int k, int j)
 	dx = (dx >= 0) ? dx : -dx;
 	dy = (dy >= 0) ? dy : -dy;
 	if (dx >= dy)
-	{
 		res = ft_color(fdf->coord[i].z * 10 + j * 10 *
 				(fdf->coord[k].z - fdf->coord[i].z) / dx, fdf);
-	}
 	else
-	{
 		res = ft_color(fdf->coord[i].z * 10 + j * 10 *
 				(fdf->coord[k].z - fdf->coord[i].z) / dy, fdf);
-	}
 	return (res);
 }
