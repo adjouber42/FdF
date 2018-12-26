@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 18:15:51 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/21 18:35:42 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/26 13:03:06 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void	projection_par(t_fdf *fdf)
 	while (i < fdf->lines * fdf->points)
 	{
 		fdf->coorf[i].x = (float)fdf->coord[i].x * fdf->zoom * 0.7
-			+ (float)fdf->coord[i].z * 2.5 * fdf->coef;
+			+ (float)fdf->coord[i].z * fdf->coef * 0.05 * fdf->zoom;
 		fdf->coorf[i].y = (float)fdf->coord[i].y * fdf->zoom * 0.7
-			+ (float)fdf->coord[i].z * 1.25 * fdf->coef;
+			+ (float)fdf->coord[i].z * fdf->coef * 0.05 * fdf->zoom / 2;
 		i++;
 	}
 	display(fdf);

@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 12:28:26 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/21 18:33:04 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/26 13:04:57 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ void	commande(t_fdf *fdf)
 {
 	mlx_string_put(fdf->mlx, fdf->win, 35, 35, 0xFFFFFF, "isometrie = i");
 	mlx_string_put(fdf->mlx, fdf->win, 35, 55, 0xFFFFFF, "parallele = p");
-	mlx_string_put(fdf->mlx, fdf->win, 35, 75, 0xFFFFFF, "move = up , down , left , right");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 75, 0xFFFFFF,
+			"move = up , down , left , right");
 	mlx_string_put(fdf->mlx, fdf->win, 35, 95, 0xFFFFFF, "zoom = + , -");
 	mlx_string_put(fdf->mlx, fdf->win, 35, 115, 0xFFFFFF, "altitude = < , >");
-	mlx_string_put(fdf->mlx, fdf->win, 35, 135, 0xFFFFFF, "change color = r , v , b");
+	mlx_string_put(fdf->mlx, fdf->win, 35, 135, 0xFFFFFF,
+			"change color = r , v , b");
 	mlx_string_put(fdf->mlx, fdf->win, 35, 155, 0xFFFFFF, "reset = space");
 	mlx_string_put(fdf->mlx, fdf->win, 35, 175, 0xFFFFFF, "close = esc");
 }
