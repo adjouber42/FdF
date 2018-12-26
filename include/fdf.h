@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:25:16 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/21 18:35:45 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/26 14:09:58 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct		s_fdf
 	int				color;
 	int				color_set;
 	int				color_mult;
+	int				fin;
 	void			*img;
 	char			*data;
 	int				bpp;
