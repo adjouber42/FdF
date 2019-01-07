@@ -6,19 +6,19 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:27:28 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/26 15:04:21 by adjouber         ###   ########.fr       */
+/*   Updated: 2018/12/26 16:07:05 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdlib.h>
 
-static void	start(t_fdf *fdf, char **av)
+static int	start(t_fdf *fdf, char **av)
 {
 	if (av[1] == NULL || ft_read(fdf) == -1)
 	{
 		ft_putendl("Error");
-		return ;
+		return (0);
 	}
 	fdf->size_line = 0;
 	fdf->endian = 0;
@@ -26,6 +26,7 @@ static void	start(t_fdf *fdf, char **av)
 	fdf->img = NULL;
 	fdf->data = NULL;
 	mlx(fdf, av[1]);
+	return (1);
 }
 
 static int	ft_print_usage(void)
@@ -37,10 +38,10 @@ static int	ft_print_usage(void)
 static void	ft_free(t_fdf fdf)
 {
 	free(fdf.file);
+	free(fdf.map);
 	free(fdf.coord);
 	free(fdf.coorf);
 	free(fdf.data);
-	free(fdf.map);
 }
 
 int			main(int ac, char **av)
@@ -51,7 +52,8 @@ int			main(int ac, char **av)
 		return (ft_print_usage());
 	fdf.file = av[1];
 	fdf.fd = open(fdf.file, O_RDONLY);
-	start(&fdf, av);
+	if (start(&fdf, av) == 0)
+		return (0);
 	ft_free(fdf);
 	return (0);
 }

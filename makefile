@@ -6,7 +6,7 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/05 12:07:03 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/21 18:20:41 by adjouber         ###   ########.fr        #
+#    Updated: 2018/12/28 13:24:29 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,11 @@ FLAG = -Wall -Werror -Wextra -g3 -fsanitize=address
 all : $(NAME)
 
 $(NAME) : $(OBJS)
+	@make -C libft/
 	@$(CC) $(FLAG) -o $(NAME) $(OBJS) $(INCLUDES) $(LIB) -framework OpenGL -framework AppKit
 	@echo "FDF:		FDF READY"
 
 %.o : %.c
-	@make -C libft/
 	@$(CC) $(FLAG) $(INCLUDES) -c $< -o $@
 
 clean :
