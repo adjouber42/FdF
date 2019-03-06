@@ -6,7 +6,7 @@
 #    By: adjouber <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/05 12:07:03 by adjouber          #+#    #+#              #
-#    Updated: 2018/12/28 13:24:29 by adjouber         ###   ########.fr        #
+#    Updated: 2019/03/06 14:30:58 by adjouber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIB = -L libft/ -lft -L /usr/local/lib -lmlx
 
 CC = gcc
 
-FLAG = -Wall -Werror -Wextra -g3 -fsanitize=address
+FLAG = -Wall -Werror -Wextra
 
 all : $(NAME)
 

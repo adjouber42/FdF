@@ -6,20 +6,31 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 12:28:26 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/26 13:04:57 by adjouber         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:31:19 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+int		close_prog(t_fdf *fdf)
+{
+	mlx_destroy_image(fdf->mlx, fdf->img);
+	mlx_destroy_window(fdf->mlx, fdf->win);
+	ft_free(fdf);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
 int		keyboard(int key, t_fdf *fdf)
 {
 	if (key == 53)
-		exit(EXIT_SUCCESS);
+		close_prog(fdf);
 	if (key == 35 && fdf->projection != 2)
 	{
 		ft_bzero(fdf->data, LON * HAU * 4);
 		fdf->projection = 2;
+		free(fdf->coorf);
+		free(fdf->coord);
 		draw(fdf);
 		commande(fdf);
 	}
@@ -27,6 +38,8 @@ int		keyboard(int key, t_fdf *fdf)
 	{
 		ft_bzero(fdf->data, LON * HAU * 4);
 		fdf->projection = 1;
+		free(fdf->coorf);
+		free(fdf->coord);
 		draw(fdf);
 		commande(fdf);
 	}
@@ -63,7 +76,7 @@ void	commande(t_fdf *fdf)
 	mlx_string_put(fdf->mlx, fdf->win, 35, 175, 0xFFFFFF, "close = esc");
 }
 
-void	mlx(t_fdf *fdf, char *av)
+void	mlx(t_fdf *fdf)
 {
 	fdf->coef = 1;
 	fdf->projection = 2;
@@ -74,10 +87,11 @@ void	mlx(t_fdf *fdf, char *av)
 		ft_putendl("manque de place pour mlx_init");
 		exit(0);
 	}
-	fdf->win = mlx_new_window(fdf->mlx, LON, HAU, ft_strjoin("Fdf - ", av));
+	fdf->win = mlx_new_window(fdf->mlx, LON, HAU, "Fdf");
 	ft_fdf(fdf);
 	draw(fdf);
 	commande(fdf);
 	mlx_hook(fdf->win, 2, 1L << 1, keyboard, fdf);
+	mlx_hook(fdf->win, 17, 1L << 17, close_prog, fdf);
 	mlx_loop(fdf->mlx);
 }

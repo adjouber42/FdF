@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:25:16 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/26 14:11:14 by adjouber         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:38:24 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct		s_fdf
 }					t_fdf;
 
 int					ft_read(t_fdf *fdf);
-void				mlx(t_fdf *fdf, char *av);
+void				mlx(t_fdf *fdf);
 int					color(t_fdf *fdf, int i, int j, int k);
 void				draw(t_fdf *fdf);
 void				display(t_fdf *fdf);
@@ -80,5 +80,6 @@ void				rouge(t_fdf *fdf);
 void				vert(t_fdf *fdf);
 void				bleu(t_fdf *fdf);
 void				commande(t_fdf *fdf);
+void				ft_free(t_fdf *fdf);
 
 #endif

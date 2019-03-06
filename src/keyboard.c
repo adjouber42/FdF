@@ -6,7 +6,7 @@
 /*   By: adjouber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 18:19:42 by adjouber          #+#    #+#             */
-/*   Updated: 2018/12/21 18:35:40 by adjouber         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:47:18 by adjouber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	decal(int key, t_fdf *fdf, int i)
 			i++;
 		}
 	decal2(key, fdf, i);
+	free(fdf->coorf);
 	projection(fdf);
 	commande(fdf);
 }
@@ -111,6 +112,7 @@ void		keyboard_max(int key, t_fdf *fdf)
 	{
 		ft_bzero(fdf->data, LON * HAU * 4);
 		free(fdf->coorf);
+		free(fdf->coord);
 		fdf->coef = 1;
 		fdf->projection = 2;
 		fdf->zoom = LON / (fdf->points + fdf->lines);
